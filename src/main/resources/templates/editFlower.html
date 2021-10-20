@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="UTF-8">
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+<title>Flower Shop</title>
+</head>
+
+<body>
+
+	<h2>Edit</h2>
+	
+	<p></p>
+	
+	<form th:object="${flower}" th:action="@{../save/*{id}}" action="#" method="post">
+	
+		<!-- id is passed on as a hidden attribute -->
+		<input type ="hidden" id ="id" th:field ="*{id}" readonly ="readonly"/>
+ 	
+ 		<label for ="name">Name</label>
+ 		<input type ="text" id ="name" th:field="*{name}"/>
+ 		<span th:errors="*{name}" class="error"></span>
+ 		<div style="clear: both; display: block; height: 10px;"></div>
+ 		
+ 		<label for ="info">Information</label>
+ 		<input type ="text" id ="info" th:field="*{info}"/>
+ 		<div style="clear: both; display: block; height: 10px;"></div>
+ 		
+ 		<label for ="price">Price</label>
+ 		<input type ="text" id ="price" th:field="*{price}"/>
+ 		<span th:errors="*{price}" class="error"></span>
+ 		<div style="clear: both; display: block; height: 10px;"></div>
+ 		
+ 		<!-- drop down menu for categories -->
+ 		<label for ="categories">Category</label>
+ 		<select id ="categories" th:field ="*{flowercategory}" class = "form-control">
+ 			<option th:each ="flowercategory: ${categories}" th:value ="${flowercategory.id}" th:text ="${flowercategory.name}">
+ 			</option>
+ 		</select>
+ 		<div style="clear: both; display: block; height: 10px;"></div>
+ 		
+ 		<input type ="submit" value ="Edit" class= "btn btn-success">
+ 		
+	</form>
+
+
+</body>
+</html>

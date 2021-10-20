@@ -1,0 +1,50 @@
+SET FOREIGN_KEY_CHECKS=0;
+DROP TABLE IF EXISTS flower; 
+DROP TABLE IF EXISTS flowercategory; 
+DROP TABLE IF EXISTS floweruser;
+SET FOREIGN_KEY_CHECKS=1;
+
+CREATE TABLE flowercategory
+(id BIGINT NOT NULL AUTO_INCREMENT 
+,name VARCHAR(50) NOT NULL
+,PRIMARY KEY (id)
+);
+
+
+CREATE TABLE flower (
+id BIGINT NOT NULL AUTO_INCREMENT
+, name VARCHAR(50) NOT NULL
+, info VARCHAR(500)
+, price BIGINT
+, flowercategoryid BIGINT
+, PRIMARY KEY (id)
+, FOREIGN KEY (flowercategoryid) REFERENCES flowercategory(id)
+, FOREIGN KEY (flowerphotoid) REFERENCES flowerphoto(id));
+
+CREATE TABLE flowerphoto(
+id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY
+, photoname VARCHAR(64) NOT NULL
+, phototype VARCHAR(20)
+, photo MEDIUMBLOB);
+
+CREATE TABLE floweruser
+(id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY
+,username VARCHAR(250) NOT NULL
+,password VARCHAR(250) NOT NULL
+,role VARCHAR(20) NOT NULL);
+
+INSERT INTO flowercategory (name) VALUES ('Viherkasvi'), ('Sipulikasvi'), ('Ruusu'), ('Mehikasvi');
+
+INSERT INTO flower (name, info, price, flowercategoryid) 
+VALUES ('Ruusu', 'Kastele hyvin', 6, 3), 
+('Peikonlehti','Varjoinen paikka', 15, 1),
+('Rahapuu', 'Anna kuivahtaa kastelujen valilla', 18, 4);
+
+INSERT INTO floweruser (username, password, role) 
+VALUES ("user", "$2a$10$1DTvwpXVBArGFixHBuzVJObjTuXhIOkx5pse6KsYs8/C2ckxnGEou", "USER"), 
+("admin", "$2a$10$cDZgyF4xaPMmmoRW3OVcmuf.8o2YSx8.M7CeRKqi.1PVw.t3E8uEC", "ADMIN");
+
+
+SELECT * FROM flower;
+SELECT * FROM flowercategory;
+SELECT * FROM floweruser;
